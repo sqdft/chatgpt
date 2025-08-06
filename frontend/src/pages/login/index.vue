@@ -170,10 +170,17 @@ const onSubmit: FormProps['onSubmit'] = async ({ validateResult, firstError }) =
   }
 };
 
+// frontend/src/pages/login/index.vue
+import RequestApi from '@/api/request'; // 确保路径正确
+
 const getVersionCfg = async () => {
-  const response = await fetch('/0x/user/version-cfg');
-  const data = await response.json();
-  Object.assign(cfg.value, { ...data });
+  try {
+    const response = await RequestApi('user/version-cfg', 'GET');
+    const data = await response.json();
+    Object.assign(cfg.value, { ...data });
+  } catch (error) {
+    console.error('Fetch version config failed:', error);
+  }
 };
 
 const goFree = async () => {

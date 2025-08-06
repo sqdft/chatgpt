@@ -1,7 +1,8 @@
+// frontend/src/store/user.ts
 import Cookies from 'js-cookie';
 import { defineStore } from 'pinia';
 import { MessagePlugin } from 'tdesign-vue-next';
-
+import RequestApi from '@/api/request'; // 导入 RequestApi
 import { usePermissionStore } from '@/store';
 import type { UserInfo } from '@/types/interface';
 
@@ -23,30 +24,29 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async login(url: string, userInfo: Record<string, unknown>) {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(userInfo),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      let data = null;
-      if (response.status === 200) {
-        data = await response.json();
-        this.token = data.admin_token;
-        this.is_admin = data.is_admin;
-        Cookies.set('user_token', data.admin_token, { expires: 7 });
-        MessagePlugin.success('登录成功');
-      } else if (response.status === 400) {
-        data = await response.json();
-        MessagePlugin.error(JSON.stringify(Object.values(data)[0]));
-      } else if (response.status === 502) {
-        MessagePlugin.error('服务未正常启动');
-        return new Response();
-      } else if (response.status === 500) {
-        MessagePlugin.error('系统异常，请稍后再试');
+      try {
+        const response = await RequestApi(url, 'POST', userInfo); // 使用 RequestApi
+        let data = null;
+        if (response.status === 200) {
+          data = await response.json();
+          this.token = data.admin_token;
+          this.is_admin = data.is_admin;
+          Cookies.set('user_token', data.admin_token, { expires: 7 });
+          MessagePlugin.success('登录成功');
+        } else if (response.status === 400) {
+          data = await response.json();
+          MessagePlugin.error(JSON.stringify(Object.values(data)[0]));
+        } else if (response.status === 502) {
+          MessagePlugin.error('服务未正常启动');
+        } else if (response.status === 500) {
+          MessagePlugin.error('系统异常，请稍后再试');
+        }
+        return data;
+      } catch (error) {
+        MessagePlugin.error('登录失败');
+        console.error('Login failed:', error);
+        return null;
       }
-      return data;
     },
 
     async logout() {
