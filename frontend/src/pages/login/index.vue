@@ -175,7 +175,7 @@ import RequestApi from '@/api/request'; // 确保路径正确
 
 const getVersionCfg = async () => {
   try {
-    const response = await RequestApi('user/version-cfg', 'GET');
+    const response = await RequestApi('/0x/user/version-cfg', 'GET');
     const data = await response.json();
     Object.assign(cfg.value, { ...data });
   } catch (error) {
