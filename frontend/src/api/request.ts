@@ -3,7 +3,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/store';
 
-const BASE_URL = 'https://chatgpt-backend-wbu0.onrender.com/0x/';
+const BASE_URL = 'https://chatgpt-backend-wbu0.onrender.com/';
 
 const RequestApi = async (url: string, method = 'GET', body: any = undefined) => {
   const userStore = useUserStore();
