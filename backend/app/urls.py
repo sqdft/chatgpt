@@ -17,12 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from app.settings import DEBUG
+from django.http import JsonResponse
 
+def home(request):
+    return JsonResponse({"status": "API is running", "version": "1.0.0"})
 urlpatterns = [
+    path("", home, name="home"),  # 根路径
     path("0x/user/", include("app.accounts.urls")),
     path("0x/chatgpt/", include("app.chatgpt.urls")),
+    path("admin/", admin.site.urls) # 生产环境中也启用 admin
 ]
-
-if DEBUG:
-    urlpatterns.append(path("admin/", admin.site.urls))
