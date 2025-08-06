@@ -140,13 +140,13 @@ const onSubmit: FormProps['onSubmit'] = async ({ validateResult, firstError }) =
 
     switch (loginType.value) {
       case 'register':
-        url = '/0x/user/register';
+        url = 'user/register';
         break;
       // case 'invite_register':
       //   url = '/api/invite-register';
       //   break;
       default:
-        url = '/0x/user/login';
+        url = 'user/login';
     }
     if (loginType.value === 'invite_register') {
       const { hash } = window.location;
@@ -175,7 +175,7 @@ import RequestApi from '@/api/request'; // 确保路径正确
 
 const getVersionCfg = async () => {
   try {
-    const response = await RequestApi('/0x/user/version-cfg', 'GET');
+    const response = await RequestApi('user/version-cfg', 'GET');
     const data = await response.json();
     Object.assign(cfg.value, { ...data });
   } catch (error) {
@@ -185,7 +185,7 @@ const getVersionCfg = async () => {
 
 const goFree = async () => {
   loading.value = true;
-  const data = await userStore.login('/0x/user/login-free', {});
+  const data = await userStore.login('user/login-free', {});
   if (data.admin_token) {
     return router.push({ name: 'LoginChatgpt' });
   }
