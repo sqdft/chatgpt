@@ -72,9 +72,11 @@ INSTALLED_APPS = [
     "app.accounts",
     "app.chatgpt",
     "django_crontab",
+    "corsheaders",  # 添加 django-cors-headers
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",  # 添加，放在最前面
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -82,6 +84,26 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+# CORS 配置
+CORS_ALLOWED_ORIGINS = [
+    "https://xy33.netlify.app",  # 前端域名
+    "http://localhost:5173",     # 本地开发
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
 ]
 
 REST_FRAMEWORK = {
