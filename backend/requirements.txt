@@ -12,3 +12,4 @@ sqlparse==0.5.1
 urllib3==2.2.3
 wheel==0.37.1
 django-crontab==0.7.1
+gunicorn==22.0.0
