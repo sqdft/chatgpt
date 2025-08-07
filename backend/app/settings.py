@@ -63,6 +63,7 @@ logging.config.dictConfig(LOGGING)
 
 # Application definition
 INSTALLED_APPS = [
+    'simpleui',  # 添加 simpleui，必须在 django.contrib.admin 之前
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
