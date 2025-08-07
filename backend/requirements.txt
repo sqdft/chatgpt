@@ -1,4 +1,3 @@
-# backend/requirements.txt
 asgiref==3.8.1
 certifi==2024.8.30
 charset-normalizer==3.3.2
@@ -15,5 +14,5 @@ wheel==0.37.1
 django-crontab==0.7.1
 gunicorn==22.0.0
 django-cors-headers==4.4.0
-psycopg2-binary==2.9.9  # 添加 PostgreSQL 适配器
-dj-database-url==2.2.0  # 添加数据库 URL 解析
+psycopg2-binary==2.9.9
+dj-database-url==2.2.0
