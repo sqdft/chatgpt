@@ -18,12 +18,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
-
+from django.views.generic import RedirectView
 def home(request):
     return JsonResponse({"status": "API is running", "version": "1.0.0"})
+
+
 urlpatterns = [
-    path("", home, name="home"),  # 根路径
+    path("", home, name="home"),
     path("0x/user/", include("app.accounts.urls")),
     path("0x/chatgpt/", include("app.chatgpt.urls")),
-    path("admin/", admin.site.urls) # 生产环境中也启用 admin
+    path("admin/", admin.site.urls),
+    path("favicon.ico", RedirectView.as_view(url="/static/favicon.ico", permanent=True)),
 ]
